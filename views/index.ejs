@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Solaready — Customer Engagement & Support</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (icons) -->
+  <script src="https://kit.fontawesome.com/a2d9b6f9c6.js" crossorigin="anonymous"></script>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Meta description -->
+  <meta name="description" content="Solaready — simple, friendly customer engagement: tickets, live chat, and secure (mock) payments." />
+  <style>
+    /* style.css — Global styles for Solaready demo
+   - Uses CSS variables for color theme (solar-inspired)
+   - Responsive layout using grid/flexbox
+*/
+
+/* ===== Theme ===== */
+:root{
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --text: #0f1724;
+  --muted: #52606d;
+  --accent-yellow: #FFB02E;
+  --accent-orange: #FF7A18;
+  --accent-blue: #0F3460;
+  --glass: rgba(255,255,255,0.6);
+  --radius: 12px;
+  --shadow: 0 6px 18px rgba(16,24,40,0.08);
+  --container-width: 1100px;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* ===== Reset / Base ===== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 30%, var(--bg) 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  font-size:16px;
+}
+
+/* ===== Layout helper ===== */
+.container{
+  width:100%;
+  max-width:var(--container-width);
+  margin:0 auto;
+  padding:1.5rem;
+}
+
+/* ===== Header ===== */
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.55));
+  border-bottom: 1px solid rgba(15,20,36,0.06);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+/* brand */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  text-decoration:none;
+  color:var(--text);
+}
+.logo-circle{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: linear-gradient(135deg,var(--accent-yellow),var(--accent-orange));
+  font-size:18px;
+  color:white;
+  box-shadow:var(--shadow);
+}
+.brand-text{font-weight:700; font-size:1.05rem}
+
+/* nav */
+.main-nav ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  gap:1rem;
+  align-items:center;
+}
+.main-nav a{
+  text-decoration:none;
+  color:var(--muted);
+  padding:.45rem .75rem;
+  border-radius:8px;
+  transition:all .18s ease;
+  font-weight:500;
+}
+.main-nav a:hover{color:var(--accent-blue); background:rgba(15,52,96,0.04)}
+
+/* special button link */
+.btn-link{
+  background: linear-gradient(90deg,var(--accent-yellow),var(--accent-orange));
+  color:#08122a;
+  font-weight:700;
+  padding:.45rem .9rem;
+  box-shadow: 0 6px 18px rgba(255,149,51,0.15);
+}
+
+/* hamburger (mobile) */
+.hamburger{
+  display:none;
+  background:transparent;
+  border:0;
+  padding:.4rem;
+}
+.hamburger .hamburger-line{
+  display:block;
+  width:22px;
+  height:2px;
+  background:var(--text);
+  margin:4px 0;
+  border-radius:2px;
+}
+
+/* ===== Hero ===== */
+.hero{
+  padding:3.25rem 0;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:2rem;
+  align-items:center;
+}
+.hero-content h1{
+  font-size:2.05rem;
+  margin:0 0 .6rem;
+}
+.lead{color:var(--muted); margin-bottom:1rem}
+.hero-ctas{display:flex; gap:.8rem; margin-bottom:1rem;}
+.btn{
+  display:inline-block;
+  text-decoration:none;
+  padding:.7rem 1.1rem;
+  border-radius:12px;
+  font-weight:600;
+  transition:transform .12s ease, box-shadow .12s ease;
+  cursor:pointer;
+}
+.btn.primary{
+  background: linear-gradient(90deg,var(--accent-yellow),var(--accent-orange));
+  color:#08122a;
+  box-shadow: 0 10px 30px rgba(255,120,40,0.12);
+}
+.btn.ghost{
+  background:transparent;
+  border:1px solid rgba(15,20,36,0.06);
+  color:var(--accent-blue);
+}
+.btn.large{padding:1rem 1.6rem; font-size:1.05rem}
+
+/* hero stats */
+.stats{display:flex; gap:1.25rem; margin-top:1rem; list-style:none; padding:0}
+.stats li{color:var(--muted); font-size:.95rem}
+
+/* hero card preview */
+.hero-card .card-preview{
+  background:linear-gradient(180deg, #ffffff, #fcf7f0);
+  border-radius:14px;
+  padding:1rem;
+  box-shadow: var(--shadow);
+  border:1px solid rgba(15,20,36,0.03);
+}
+.card-header{display:flex; gap:6px; align-items:center; padding-bottom:.6rem}
+.card-body h3{margin:.2rem 0 .4rem}
+.card-actions{display:flex; gap:.5rem}
+.pill{padding:.45rem .65rem; border-radius:999px; border:0; font-weight:600}
+.pill.outline{background:transparent; border:1px solid rgba(15,20,36,0.06)}
+
+/* ===== About & Features ===== */
+.about{padding:2.5rem 0}
+.about-inner{display:flex; gap:2rem; align-items:flex-start}
+.about-text{flex:1; min-width:240px}
+.about-features{display:grid; grid-template-columns:repeat(1,1fr); gap:1rem; width:400px}
+.feature{background:var(--card); border-radius:12px; padding:1rem; box-shadow:var(--shadow); display:flex; gap:1rem; align-items:center}
+.feature h4{margin:.2rem 0 0}
+
+/* ===== Services ===== */
+.services{padding:2rem 0}
+.services-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:1rem}
+.service-card{background:var(--card); padding:1rem; border-radius:12px; box-shadow:var(--shadow)}
+
+/* ===== CTA ===== */
+.cta{padding:2rem 0}
+.cta-inner{background:linear-gradient(90deg, rgba(255,176,46,0.08), rgba(255,122,24,0.06)); padding:1.2rem; border-radius:12px; display:flex; align-items:center; justify-content:space-between; gap:1rem}
+
+/* ===== Footer ===== */
+.site-footer{padding:2rem 0 3rem; margin-top:2rem; border-top:1px solid rgba(15,20,36,0.05); background:transparent}
+.footer-grid{display:grid; grid-template-columns:1fr 150px 160px; gap:1.5rem}
+.footer-col h4{margin-bottom:.5rem}
+.copy{padding-top:1rem; border-top:1px solid rgba(15,20,36,0.03); margin-top:1rem}
+
+/* chat floating button */
+.chat-fab{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:56px;
+  height:56px;
+  border-radius:999px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,var(--accent-orange),var(--accent-yellow));
+  color:#08122a;
+  box-shadow:0 12px 30px rgba(255,120,40,0.18);
+  text-decoration:none;
+  z-index:60;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr; text-align:left}
+  .hero-card{order:2}
+  .about-inner{flex-direction:column}
+  .services-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:720px){
+  .main-nav{display:none}
+  .hamburger{display:block}
+  .header-inner{padding: .6rem 0}
+  .container{padding:1rem}
+  .main-nav.open{display:block; position:absolute; right:1rem; top:64px; background:var(--card); border-radius:12px; padding:0.75rem; box-shadow:var(--shadow)}
+  .main-nav ul{flex-direction:column; gap:.4rem}
+  .about-features{width:100%}
+}
+
+/* small helpers */
+.text-muted{color:var(--muted)}
+.center{text-align:center}
+
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo-circle" aria-hidden="true">☀️</div>
+        <span class="brand-text">Solaready</span>
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="payment.html">Payment</a></li>
+          <li><a href="login.html" class="btn-link">Login</a></li>
+        </ul>
+      </nav>
+
+      <!-- Hamburger for mobile -->
+      <button id="navToggle" class="hamburger" aria-label="Toggle navigation">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>Customer support that shines — simple, fast, and human.</h1>
+        <p class="lead">Manage tickets, chat with users, and process secure payments — all in one lightweight web app.</p>
+
+        <div class="hero-ctas">
+          <a class="btn primary" href="tickets.html">Create a Ticket</a>
+          <a class="btn ghost" href="signup.html">Get Started</a>
+        </div>
+
+        <ul class="stats">
+          <li><strong>0</strong> setup minutes</li>
+          <li><strong>local</strong> data demo</li>
+          <li><strong>no</strong> backend required (demo)</li>
+        </ul>
+      </div>
+
+      <div class="hero-card" aria-hidden="true">
+        <!-- Mock UI preview card -->
+        <div class="card-preview">
+          <div class="card-header">
+            <div class="dot dot-yellow"></div>
+            <div class="dot dot-orange"></div>
+            <div class="dot dot-blue"></div>
+          </div>
+          <div class="card-body">
+            <h3>Ticket #001</h3>
+            <p>Issue: Unable to sync data — last updated 2 hours ago</p>
+            <div class="card-actions">
+              <button class="pill">Resolve</button>
+              <button class="pill outline">Comment</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about container" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <h2>About Solaready</h2>
+        <p>Solaready is a compact customer engagement platform focused on speed and clarity. Built as a learning project with HTML, CSS, and vanilla JavaScript, it demonstrates core flows: ticketing, chat, account handling (localStorage), and mock payments.</p>
+      </div>
+      <div class="about-features">
+        <div class="feature">
+          <i class="fa-solid fa-ticket-simple fa-2x"></i>
+          <h4>Ticket Management</h4>
+          <p>Create, view, and resolve support tickets stored in your browser.</p>
+        </div>
+        <div class="feature">
+          <i class="fa-solid fa-comments fa-2x"></i>
+          <h4>Live Assistance</h4>
+          <p>Integrated chat widget with simulated responses for demo purposes.</p>
+        </div>
+        <div class="feature">
+          <i class="fa-solid fa-credit-card fa-2x"></i>
+          <h4>Payments (Mock)</h4>
+          <p>A simple checkout flow to demonstrate payment UX without real transactions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services / How it works -->
+  <section class="services container">
+    <h2>How it works</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>1. Sign up</h3>
+        <p>Create an account (stored locally) then log in to access your dashboard.</p>
+      </div>
+      <div class="service-card">
+        <h3>2. Submit tickets</h3>
+        <p>Open new tickets with subject & description. Manage them from the Tickets page.</p>
+      </div>
+      <div class="service-card">
+        <h3>3. Live help</h3>
+        <p>Launch the chat widget to get quick simulated help or canned responses.</p>
+      </div>
+      <div class="service-card">
+        <h3>4. Mock payments</h3>
+        <p>Use the checkout form to see a simulated "Payment Successful" flow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="cta container">
+    <div class="cta-inner">
+      <h2>Ready to shine? Start with a ticket.</h2>
+      <a href="signup.html" class="btn primary large">Create an account — it's free</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3>Solaready</h3>
+        <p>Small demo app for customer support flows. Built with HTML, CSS & JS.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="chat.html">Chat</a></li>
+          <li><a href="payment.html">Payment</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>hello@solaready.example</p>
+        <div class="socials">
+          <a aria-label="twitter" href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a aria-label="linkedin" href="#"><i class="fa-brands fa-linkedin"></i></a>
+          <a aria-label="github" href="#"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="container copy">
+      <small>© <span id="year"></span> Solaready — Demo project. All mock data. </small>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Button (opens chat.html) -->
+  <a class="chat-fab" href="chat.html" title="Open Chat">
+    <i class="fa-solid fa-comments"></i>
+  </a>
+
+  <!-- Main Scripts -->
+  <script src="js/script.js"></script>
+  <script>
+    /*
+  script.js — Main interactivity for index.html
+  - Handles mobile nav toggle
+  - Sets the current year in the footer
+  - Small accessibility helpers
+  - NOTE: Feature-specific logic (auth, tickets, chat, payment)
+    will be placed in separate files (auth.js, tickets.js, chat.js, payment.js)
+*/
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Set year
+  const yearSpan = document.getElementById('year');
+  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+
+  if (navToggle && mainNav) {
+    navToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('open');
+      navToggle.classList.toggle('open');
+      // Toggle aria-expanded for accessibility
+      const expanded = mainNav.classList.contains('open');
+      navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    });
+  }
+
+  // Smooth scroll for internal links (if used)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Small keyboard accessibility for the chat FAB (Enter key opens chat.html)
+  const chatFab = document.querySelector('.chat-fab');
+  if (chatFab) {
+    chatFab.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        window.location.href = chatFab.getAttribute('href');
+      }
+    });
+  }
+
+  // Progressive enhancement: if localStorage has an auth user, show a "Dashboard" link instead of Login
+  const authData = localStorage.getItem('solaready_user');
+  if (authData) {
+    try {
+      const navLinks = document.querySelector('.main-nav ul');
+      if (navLinks) {
+        // replace Login link with Dashboard + Logout
+        const loginLink = navLinks.querySelector('a[href="login.html"]');
+        if (loginLink) {
+          const li = loginLink.closest('li');
+          if (li) {
+            li.innerHTML = `<a href="dashboard.html">Dashboard</a>`;
+            const logoutLi = document.createElement('li');
+            logoutLi.innerHTML = `<a href="#" id="logoutBtn">Logout</a>`;
+            navLinks.appendChild(logoutLi);
+
+            // Logout handler
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn && logoutBtn.addEventListener('click', (ev) => {
+              ev.preventDefault();
+              localStorage.removeItem('solaready_user');
+              location.reload();
+            });
+          }
+        }
+      }
+    } catch (err) {
+      // ignore parse errors
+    }
+  }
+});
+
+  </script>
+</body>
+</html>
