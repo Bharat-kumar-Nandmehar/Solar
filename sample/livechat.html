@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solaready Live Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* SolarTech Dark Theme CSS Variables */
+        :root {
+            --bg-dark: #121212;
+            --bg-medium: #1e1e1e;
+            --bg-light: #2c2c2c;
+            --text-light: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-green: #00ff80;
+            --accent-blue: #00d4ff;
+            --gradient-primary: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            --shadow-glow: 0 0 20px rgba(0, 255, 128, 0.2), 0 0 40px rgba(0, 212, 255, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            flex-grow: 1;
+            padding-top: 64px; /* Space for the fixed header */
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 5px rgba(0, 255, 128, 0.5);
+        }
+        
+        .logo-icon {
+            color: var(--accent-green);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .header-btn:hover {
+            background: var(--bg-light);
+            color: var(--accent-green);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 256px;
+            background: var(--bg-medium);
+            border-right: 1px solid var(--bg-light);
+            padding: 24px 0;
+            position: fixed;
+            height: calc(100vh - 64px);
+            top: 64px;
+            z-index: 999;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0);
+        }
+        
+        .sidebar-content {
+            padding: 0 16px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 255, 128, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .user-info .email {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-nav-group {
+            margin-bottom: 24px;
+        }
+        
+        .sidebar-nav-group h2 {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 8px 16px;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        .sidebar-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        
+        .sidebar-nav-link:hover {
+            background: rgba(0, 255, 128, 0.1);
+            color: var(--accent-green);
+        }
+
+        .sidebar-nav-link.active {
+            background: rgba(0, 255, 128, 0.15);
+            color: var(--accent-green);
+            font-weight: 600;
+            border-left: 2px solid var(--accent-green);
+        }
+        
+        .sidebar-nav-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .hamburger-menu {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 24px;
+            margin-left: 256px; /* Offset for sidebar */
+            transition: margin-left 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            color: var(--text-light);
+            background: none;
+            -webkit-text-fill-color: var(--text-light);
+            text-shadow: none;
+        }
+
+        .dashboard-header p {
+            color: var(--text-secondary);
+        }
+        
+        .back-btn {
+            background: none;
+            border: 1px solid var(--bg-light);
+            color: var(--text-light);
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+            margin-right: 16px;
+        }
+
+        .back-btn:hover {
+            background: var(--bg-light);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+        
+        /* Chat-specific styles */
+        .chat-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .chat-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .chat-layout {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chat-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--bg-light);
+        }
+        
+        .chat-header .title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .message {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .message.bot {
+            justify-content: flex-start;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .message.user .message-avatar {
+            background: var(--accent-blue);
+            margin-left: 8px;
+            margin-right: 0;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            background: var(--bg-light);
+        }
+        
+        .message.user .message-bubble {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+        }
+        
+        .message-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .message-text {
+            font-size: 1rem;
+            white-space: pre-wrap;
+        }
+        
+        .chat-input {
+            padding: 16px;
+            border-top: 1px solid var(--bg-light);
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input textarea {
+            flex-grow: 1;
+            min-height: 48px;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            border-radius: 8px;
+            color: var(--text-light);
+            resize: none;
+            transition: var(--transition);
+        }
+
+        .chat-input textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        }
+
+        .send-btn {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .send-btn:hover {
+            box-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+        }
+        
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Quick Questions Card */
+        .quick-questions-card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .quick-questions-card h3 {
+            font-size: 1.25rem;
+            color: var(--text-light);
+        }
+        
+        .quick-question-btn {
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            color: var(--text-light);
+            text-align: left;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        
+        .quick-question-btn:hover {
+            background: var(--bg-light);
+            color: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 56px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        
+        footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin-left: 16px;
+        }
+        
+        footer .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .hamburger-menu {
+                display: block;
+            }
+            .dashboard-layout.show-sidebar .sidebar {
+                transform: translateX(0);
+            }
+            .dashboard-layout.show-sidebar .main-content {
+                margin-left: 256px;
+            }
+            .chat-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <div class="hamburger-menu">
+                    <button class="header-btn" onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" x2="20" y1="12" y2="12"></line>
+                            <line x1="4" x2="20" y1="6" y2="6"></line>
+                            <line x1="4" x2="20" y1="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="logo">Solaready</div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" title="Notifications">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="header-btn" title="Log out">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" x2="9" y1="12" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="user-profile">
+                    <div class="user-avatar">U</div>
+                    <div class="user-info">
+                        <p class="name">User</p>
+                        <p class="email">user@example.com</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>GENERAL</h2>
+                    <a href="user_dashboard.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="user_profile.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                    <a href="notifications.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                        </svg>
+                        <span>Notifications</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>SUPPORT</h2>
+                    <a href="tickets.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                            <path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path>
+                        </svg>
+                        <span>Tickets</span>
+                    </a>
+                    <a href="livechat.html" class="sidebar-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span>Live Chat</span>
+                    </a>
+                    <a href="#" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 17h.01"></path>
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"></path>
+                            <path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"></path>
+                        </svg>
+                        <span>Knowledge Base</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>BILLING</h2>
+                    <a href="#" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                            <line x1="2" x2="22" y1="10" y2="10"></line>
+                        </svg>
+                        <span>Payments</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>ACCOUNT</h2>
+                    <a href="#" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Chat Support</h1>
+                    <p>Get instant help from our AI assistant or connect with a support agent</p>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-layout">
+                    <!-- Chat Box -->
+                    <div class="chat-box">
+                        <div class="chat-header">
+                            <div class="title">AI Assistant</div>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Bot Message -->
+                            <div class="message bot">
+                                <div class="message-avatar">AI</div>
+                                <div class="message-bubble">
+                                    <div class="message-meta">Solaready AI • 01:26 PM</div>
+                                    <p class="message-text">Hello! I'm your Solaready AI assistant. How can I help you today?</p>
+                                </div>
+                            </div>
+                            <!-- User Message -->
+                            <!--
+                            <div class="message user">
+                                <div class="message-bubble">
+                                    <div class="message-meta">You • 01:27 PM</div>
+                                    <p class="message-text">I need help with my account.</p>
+                                </div>
+                                <div class="message-avatar">U</div>
+                            </div>
+                            -->
+                        </div>
+                        <div class="chat-input">
+                            <textarea id="message-input" placeholder="Type your message..."></textarea>
+                            <button class="send-btn" onclick="sendMessage()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                                    <path d="m21.854 2.147-10.94 10.939"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Card -->
+                    <div class="quick-questions-card">
+                        <h3>Quick Questions</h3>
+                        <button class="quick-question-btn" onclick="sendQuickQuestion('What is my account status?')">What is my account status?</button>
+                        <button class="quick-question-btn" onclick="sendQuickQuestion('How do I reset my password?')">How do I reset my password?</button>
+                        <button class="quick-question-btn" onclick="sendQuickQuestion('When is my next invoice due?')">When is my next invoice due?</button>
+                        <button class="quick-question-btn" onclick="sendQuickQuestion('How can I download my documents?')">How can I download my documents?</button>
+                        <button class="quick-question-btn" onclick="sendQuickQuestion('What are your support hours?')">What are your support hours?</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Solaready. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const layout = document.querySelector('.dashboard-layout');
+            layout.classList.toggle('show-sidebar');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            if (message) {
+                // Add user message to chat
+                const chatMessages = document.getElementById('chat-messages');
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.classList.add('message', 'user');
+                userMessageDiv.innerHTML = `
+                    <div class="message-bubble">
+                        <div class="message-meta">You • ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
+                        <p class="message-text">${message}</p>
+                    </div>
+                    <div class="message-avatar">U</div>
+                `;
+                chatMessages.appendChild(userMessageDiv);
+
+                // Clear input
+                input.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // For demonstration, immediately respond with a bot message
+                setTimeout(() => {
+                    const botResponse = document.createElement('div');
+                    botResponse.classList.add('message', 'bot');
+                    botResponse.innerHTML = `
+                        <div class="message-avatar">AI</div>
+                        <div class="message-bubble">
+                            <div class="message-meta">Solaready AI • ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</div>
+                            <p class="message-text">Thank you for your message. I am still learning, but I will do my best to assist you. A human agent will be with you shortly.</p>
+                        </div>
+                    `;
+                    chatMessages.appendChild(botResponse);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        function sendQuickQuestion(question) {
+            const input = document.getElementById('message-input');
+            input.value = question;
+            sendMessage();
+        }
+    </script>
+</body>
+</html>

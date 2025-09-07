@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarTech Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reusing the same theme variables for consistency */
+        :root {
+            --bg-dark: #121212;
+            --bg-medium: #1e1e1e;
+            --bg-light: #2c2c2c;
+            --text-light: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-green: #00ff80;
+            --accent-blue: #00d4ff;
+            --gradient-primary: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            --shadow-glow: 0 0 20px rgba(0, 255, 128, 0.2), 0 0 40px rgba(0, 212, 255, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* General Body and Layout */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        .animated-background {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1; /* Place behind the content */
+        }
+        
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(0, 255, 128, 0.05),
+                rgba(0, 255, 128, 0.05) 5px,
+                transparent 5px,
+                transparent 25px
+            ),
+            radial-gradient(circle at 70% 30%, rgba(0, 212, 255, 0.1), transparent 70%);
+            animation: background-pan 30s linear infinite;
+        }
+
+        @keyframes background-pan {
+            100% {
+                transform: translate(25%, 25%);
+            }
+        }
+
+        .auth-container {
+            position: relative;
+            z-index: 10; /* Bring the form to the front */
+            background: rgba(30, 30, 30, 0.9); /* Semi-transparent background for better readability */
+            backdrop-filter: blur(10px); /* Add a blur effect to the background */
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Titles and Text */
+        .auth-container h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-green);
+            text-shadow: 0 0 8px rgba(0, 255, 128, 0.3);
+        }
+
+        .auth-container p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input::placeholder {
+            color: #555;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 10px rgba(0, 255, 128, 0.2);
+        }
+
+        /* Dropdown Styling */
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
+        }
+        
+        .form-group select option {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        /* Button Styling */
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 255, 128, 0.2);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Links and additional text */
+        .auth-links {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .auth-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background"></div>
+    <div class="auth-container">
+        <h2>Welcome Back</h2>
+        <p>Log in to your SolarTech account to manage your energy.</p>
+        <form method="POST" action="/user">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Login As</label>
+                <select id="role" name="role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-submit">Log In</button>
+        </form>
+        <div class="auth-links">
+            <p>Don't have an account? <a href="http://localhost:8080/signup">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>

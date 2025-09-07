@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solaready Knowledge Base</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* SolarTech Dark Theme CSS Variables */
+        :root {
+            --bg-dark: #121212;
+            --bg-medium: #1e1e1e;
+            --bg-light: #2c2c2c;
+            --text-light: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent-green: #00ff80;
+            --accent-blue: #00d4ff;
+            --gradient-primary: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            --shadow-glow: 0 0 20px rgba(0, 255, 128, 0.2), 0 0 40px rgba(0, 212, 255, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-layout {
+            display: flex;
+            flex-grow: 1;
+            padding-top: 64px; /* Space for the fixed header */
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 5px rgba(0, 255, 128, 0.5);
+        }
+        
+        .logo-icon {
+            color: var(--accent-green);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .header-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .header-btn:hover {
+            background: var(--bg-light);
+            color: var(--accent-green);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 256px;
+            background: var(--bg-medium);
+            border-right: 1px solid var(--bg-light);
+            padding: 24px 0;
+            position: fixed;
+            height: calc(100vh - 64px);
+            top: 64px;
+            z-index: 999;
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(0);
+        }
+        
+        .sidebar-content {
+            padding: 0 16px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: var(--bg-light);
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(0, 255, 128, 0.1);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-green);
+            color: var(--bg-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-info .name {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .user-info .email {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-nav-group {
+            margin-bottom: 24px;
+        }
+        
+        .sidebar-nav-group h2 {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 8px 16px;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        .sidebar-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        
+        .sidebar-nav-link:hover {
+            background: rgba(0, 255, 128, 0.1);
+            color: var(--accent-green);
+        }
+
+        .sidebar-nav-link.active {
+            background: rgba(0, 255, 128, 0.15);
+            color: var(--accent-green);
+            font-weight: 600;
+            border-left: 2px solid var(--accent-green);
+        }
+        
+        .sidebar-nav-link svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .hamburger-menu {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 24px;
+            margin-left: 256px; /* Offset for sidebar */
+            transition: margin-left 0.3s ease-in-out;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 32px;
+            color: var(--text-light);
+            background: none;
+            -webkit-text-fill-color: var(--text-light);
+            text-shadow: none;
+        }
+
+        .dashboard-header p {
+            color: var(--text-secondary);
+        }
+        
+        /* Knowledge Base Specific Styles */
+        .knowledge-base-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-bar-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+
+        .search-bar-container input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            background: var(--bg-medium);
+            border: 1px solid var(--bg-light);
+            border-radius: 50px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-bar-container input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-bar-container input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        }
+
+        .search-bar-container svg {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 24px;
+            background: var(--bg-medium);
+            border-radius: var(--border-radius);
+            padding: 4px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .tab-btn.active {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        .card {
+            background: rgba(30, 30, 30, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            margin-bottom: 24px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+        
+        .category-card {
+            background: var(--bg-medium);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+        
+        .category-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-card h3 {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .article-count {
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--bg-dark);
+            padding: 4px 12px;
+            border-radius: 50px;
+            color: var(--text-secondary);
+        }
+        
+        .article-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .article-list li {
+            padding: 16px;
+            border-bottom: 1px solid var(--bg-light);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .article-list li:hover {
+            background-color: var(--bg-medium);
+        }
+
+        .article-list h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--text-light);
+        }
+
+        .article-list p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        .faq-section h2 {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+        
+        .faq-item {
+            background: var(--bg-medium);
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: var(--bg-light);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-question.active svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            color: var(--text-secondary);
+        }
+
+        .faq-answer.active {
+            max-height: 200px; /* Adjust based on expected content size */
+            padding: 16px 24px 24px;
+        }
+
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 56px;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--bg-light);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+        
+        footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            margin-left: 16px;
+        }
+        
+        footer .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .hamburger-menu {
+                display: block;
+            }
+            .dashboard-layout.show-sidebar .sidebar {
+                transform: translateX(0);
+            }
+            .dashboard-layout.show-sidebar .main-content {
+                margin-left: 256px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <div class="hamburger-menu">
+                    <button class="header-btn" onclick="toggleSidebar()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" x2="20" y1="12" y2="12"></line>
+                            <line x1="4" x2="20" y1="6" y2="6"></line>
+                            <line x1="4" x2="20" y1="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="logo">Solaready</div>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" title="Notifications">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                    </svg>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button class="header-btn" title="Log out">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" x2="9" y1="12" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="user-profile">
+                    <div class="user-avatar">U</div>
+                    <div class="user-info">
+                        <p class="name">User</p>
+                        <p class="email">user@example.com</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>GENERAL</h2>
+                    <a href="user_dashboard.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                            <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="user_profile.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span>Profile</span>
+                    </a>
+                    <a href="notifications.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                            <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+                        </svg>
+                        <span>Notifications</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>SUPPORT</h2>
+                    <a href="tickets.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                            <path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path>
+                        </svg>
+                        <span>Tickets</span>
+                    </a>
+                    <a href="livechat.html" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span>Live Chat</span>
+                    </a>
+                    <a href="knowledge_base.html" class="sidebar-nav-link active">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 17h.01"></path>
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"></path>
+                            <path d="M9.1 9a3 3 0 0 1 5.82 1c0 2-3 3-3 3"></path>
+                        </svg>
+                        <span>Knowledge Base</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>BILLING</h2>
+                    <a href="#" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="5" rx="2"></rect>
+                            <line x1="2" x2="22" y1="10" y2="10"></line>
+                        </svg>
+                        <span>Payments</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-nav-group">
+                    <h2>ACCOUNT</h2>
+                    <a href="#" class="sidebar-nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <span>Settings</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="dashboard-header">
+                <div>
+                    <h1>Knowledge Base</h1>
+                    <p>Find answers to frequently asked questions and helpful guides</p>
+                </div>
+            </div>
+
+            <div class="knowledge-base-container">
+                <div class="search-bar-container">
+                    <input type="text" placeholder="Search knowledge base...">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </div>
+                
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('categories')">Categories</button>
+                    <button class="tab-btn" onclick="showTab('popular-articles')">Popular Articles</button>
+                </div>
+
+                <div id="categories-tab" class="tab-content active">
+                    <div class="card">
+                        <div class="categories-grid">
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #4f46e5;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path>
+                                            <path d="M7 21C7 16.5817 9.58172 14 14 14C18.4183 14 21 16.5817 21 21H7Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Account Management</h3>
+                                </div>
+                                <span class="article-count">6</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #16a34a;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M3 4.5C3 3.12 4.12 2 5.5 2H18.5C19.88 2 21 3.12 21 4.5V18.5C21 19.88 19.88 21 18.5 21H5.5C4.12 21 3 19.88 3 18.5V4.5ZM8 17H16C16.55 17 17 16.55 17 16C17 15.45 16.55 15 16 15H8C7.45 15 7 15.45 7 16C7 16.55 7.45 17 8 17ZM16 7H8C7.45 7 7 7.45 7 8C7 8.55 7.45 9 8 9H16C16.55 9 17 8.55 17 8C17 7.45 16.55 7 16 7ZM16 13H8C7.45 13 7 12.55 7 12C7 11.45 7.45 11 8 11H16C16.55 11 17 11.45 17 12C17 12.55 16.55 13 16 13Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Billing & Payments</h3>
+                                </div>
+                                <span class="article-count">8</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #e11d48;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M3 17V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17Z"></path>
+                                            <path d="M9 11.5h2.5V9h1v2.5H15v1h-2.5V15h-1v-2.5H9v-1z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Technical Support</h3>
+                                </div>
+                                <span class="article-count">12</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #f97316;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 17V11H13V17H11ZM11 9V7H13V9H11Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Getting Started</h3>
+                                </div>
+                                <span class="article-count">4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="popular-articles-tab" class="tab-content">
+                    <div class="card">
+                        <ul class="article-list">
+                            <li>
+                                <h4>How to read your Solaready bill</h4>
+                                <p>A step-by-step guide to understanding the different charges on your monthly statement.</p>
+                            </li>
+                            <li>
+                                <h4>Troubleshooting common panel issues</h4>
+                                <p>Quick solutions for the most frequent technical problems with your solar panels.</p>
+                            </li>
+                            <li>
+                                <h4>Setting up your account for the first time</h4>
+                                <p>Everything you need to know to get started with your new Solaready account.</p>
+                            </li>
+                            <li>
+                                <h4>Upgrading your system: What you need to know</h4>
+                                <p>Information on how to upgrade your existing solar setup for more power and efficiency.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                ---
+
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>How do I contact customer support?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can contact our customer support team through the **Live Chat** feature in the dashboard, or by submitting a support ticket. Our AI assistant is available 24/7, and human agents are online during business hours.</p>
+                            </div>
+                        </li>
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>What is the average lifespan of a solar panel?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Most modern solar panels have a lifespan of **25 to 30 years**. Their efficiency will gradually decrease over time, but they will continue to produce energy.</p>
+                            </div>
+                        </li>
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I track my energy usage?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can monitor your energy production and usage directly from your dashboard. We also provide a detailed breakdown in your monthly invoice and a detailed article on how to read your Solaready bill.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Solaready. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSidebar() {
+            const layout = document.querySelector('.dashboard-layout');
+            layout.classList.toggle('show-sidebar');
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const activeQuestion = document.querySelector('.faq-question.active');
+                
+                if (activeQuestion && activeQuestion !== item) {
+                    activeQuestion.classList.remove('active');
+                    activeQuestion.nextElementSibling.classList.remove('active');
+                }
+
+                item.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
