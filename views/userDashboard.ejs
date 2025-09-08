@@ -510,7 +510,7 @@
 
                 <div class="sidebar-nav-group">
                     <h2>SUPPORT</h2>
-                    <a href="tickets.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/user/<%= user._id %>/tickets" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
                             <path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path>
@@ -625,27 +625,39 @@
                         <div class="description">Your recently created support tickets</div>
                     </div>
                     <div class="card-content">
-                        <div class="ticket-item">
-                            <div>
-                                <p>Unable to access account settings</p>
-                                <p class="description">6/15/2023</p>
+                        <% // if (!user.tickets || user.tickets.length === 0) {  %>
+                            <div class="ticket-item">
+                                <div>
+                                    <p>Unable to access account settings</p>
+                                    <p class="description">6/15/2023</p>
+                                </div>
+                                <span class="status open">open</span>
                             </div>
-                            <span class="status open">open</span>
-                        </div>
-                        <div class="ticket-item">
-                            <div>
-                                <p>Billing discrepancy on latest invoice</p>
-                                <p class="description">6/10/2023</p>
+                            <div class="ticket-item">
+                                <div>
+                                    <p>Billing discrepancy on latest invoice</p>
+                                    <p class="description">6/10/2023</p>
+                                </div>
+                                <span class="status in-progress">in-progress</span>
                             </div>
-                            <span class="status in-progress">in-progress</span>
-                        </div>
-                        <div class="ticket-item">
-                            <div>
-                                <p>Request for additional user licenses</p>
-                                <p class="description">6/5/2023</p>
+                            <div class="ticket-item">
+                                <div>
+                                    <p>Request for additional user licenses</p>
+                                    <p class="description">6/5/2023</p>
+                                </div>
+                                <span class="status closed">closed</span>
                             </div>
-                            <span class="status closed">closed</span>
-                        </div>
+                        <% //} else { %>
+                            <% //for(let ticket of tickets){ %>
+                                <div class="ticket-item">
+                                <div>
+                                    <p><%= //ticket.title  %></p>
+                                    <p class="description">6/15/2023</p>
+                                </div>
+                                <span class="status open">open</span>
+                                </div>                    
+                            <% //} %>
+                        <% //} %> 
                     </div>
                 </div>
 

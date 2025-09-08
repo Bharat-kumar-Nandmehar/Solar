@@ -4,6 +4,7 @@ const port = 8080;
 const path = require("path");
 const mongoose = require("mongoose");
 const User = require("./models/user.js");
+const Ticket = require("./models/tickets.js");
 const methodOverride = require("method-override");
 
 main()
@@ -70,6 +71,7 @@ app.post("/user",async(req,res)=>{
 })
 
 
+
 // Profile Page
 app.get("/user/:id/profile",async(req,res)=>{
     let {id} = req.params;
@@ -83,7 +85,7 @@ app.get("/user/:id/profile",async(req,res)=>{
 app.get("/user/:id/edit",async(req,res)=>{
     let {id} = req.params;
     let user = await User.findById(id);
-    console.log(user);
+    // console.log(user);
     res.render("userEdit.ejs",{user});
 })
 
@@ -92,13 +94,36 @@ app.put("/user/:id",async(req,res)=>{
     let {id} = req.params;
     let {name,email,password,contact,address,city,state,zip,bio} = req.body;
     let updatedUser = await User.findByIdAndUpdate(id,{name,email,password,contact,address,city,state,zip,bio},{new:true});
-    console.log(updatedUser);
+    // console.log(updatedUser);
     res.redirect(`/user/${id}/profile`);
 })
 
 // Tickets Page
-app.get("/user/tickets",(req,res)=>{
-    res.render("userTickets.ejs");
+app.get("/user/:id/tickets",async(req,res)=>{
+    let{id} = req.params;
+    let user = await User.findById(id).populate("tickets"); // Using populate so that data can be retrieved from the ticket model
+    // console.log(user);
+    res.render("userTickets.ejs",{user});
+})
+
+// Create ticket page
+app.get("/user/:id/createTicket",async(req,res)=>{
+    let{id} = req.params;
+    let user = await User.findById(id);
+    // console.log("Create ticket page");
+    // console.log(user);
+    res.render("userCreateTicket.ejs",{user});
+})
+
+app.post("/user/:id" ,async(req,res)=>{
+    let {id} = req.params; // Extracting data from the url (user data)
+    let{title: newTitle,issue_type,priority,description} = req.body;
+    let ticket = await new Ticket({title: newTitle ,issue_type,priority,description,created_at: new Date()});
+    let saveTicket = await ticket.save(); // saving the ticket data in the ticket database
+    let user = await User.findById(id);
+    user.tickets.push(saveTicket); // pushing the whole object in user (tickets array)
+    await user.save();
+    res.redirect(`/user/${id}/tickets`);
 })
 
 app.listen(port,()=>{

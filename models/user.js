@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
+const Ticket = require("./tickets.js");
 
 const userSchema = new Schema({
     name: {
@@ -37,11 +38,17 @@ const userSchema = new Schema({
     },
     bio: {
         type: String,
-    }
+    },
+    tickets: [
+        {
+            _id : false,
+            type: Schema.Types.ObjectId,
+            ref: "Ticket", //collection name   
+        }
+    ]
 });
 
 const User = mongoose.model("User",userSchema);
-
 module.exports = User;
 
 

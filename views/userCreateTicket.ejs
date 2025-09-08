@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaready Support Tickets</title>
+    <title>Solaready Create Support Ticket</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -261,173 +261,161 @@
             color: var(--text-secondary);
         }
         
-        .new-ticket-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
+        .back-btn {
+            background: none;
+            border: 1px solid var(--bg-light);
+            color: var(--text-light);
+            padding: 8px;
+            border-radius: 50%;
             transition: var(--transition);
-        }
-        
-        .new-ticket-btn:hover {
-            box-shadow: var(--shadow-glow);
+            margin-right: 16px;
         }
 
-        /* Tickets-specific styles */
-        .tickets-container {
-            max-width: 1200px;
+        .back-btn:hover {
+            background: var(--bg-light);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Form-specific styles */
+        .form-card {
+            max-width: 900px;
             margin: 0 auto;
-        }
-
-        .card {
             background: rgba(30, 30, 30, 0.6);
             backdrop-filter: blur(5px);
             border: 1px solid var(--bg-light);
             border-radius: var(--border-radius);
             padding: 24px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: var(--transition);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-green);
         }
 
-        .card-header {
+        .form-card .card-header {
             display: flex;
             flex-direction: column;
             margin-bottom: 24px;
         }
-
-        .card-header .title {
+        
+        .form-card .card-header .title {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-light);
         }
-
-        .card-header .description {
+        
+        .form-card .card-header .description {
             font-size: 14px;
             color: var(--text-secondary);
         }
-
-        .ticket-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
+        
+        .form-group {
             margin-bottom: 24px;
         }
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-        }
 
-        .search-container input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            border-radius: 50px;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
             color: var(--text-light);
         }
 
-        .search-container input:focus {
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input::placeholder, .form-group textarea::placeholder {
+            color: #555;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: var(--accent-green);
             box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
         }
 
-        .search-container svg {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .filter-container select {
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            color: var(--text-light);
-            padding: 10px;
-            border-radius: 8px;
+        .form-group select {
             appearance: none;
             cursor: pointer;
         }
         
-        .filter-container select:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        .form-group select option {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
         }
 
-        .tickets-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        
-        .tickets-table th, .tickets-table td {
-            text-align: left;
-            padding: 16px;
-            border-bottom: 1px solid var(--bg-light);
-        }
-
-        .tickets-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .tickets-table tbody tr {
-            transition: background-color 0.3s ease;
-        }
-        
-        .tickets-table tbody tr:hover {
-            background-color: var(--bg-light);
-        }
-
-        .status-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
-            display: inline-flex;
+        .file-upload-container {
+            display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 16px;
         }
         
-        .status-tag.open { background: rgba(255, 159, 67, 0.15); color: #ff9f43; }
-        .status-tag.in-progress { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-        .status-tag.closed { background: rgba(0, 255, 128, 0.15); color: #00ff80; }
+        .file-upload-container button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
 
-        .priority-tag {
-            padding: 4px 12px;
+        .file-upload-container button:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .file-upload-container button svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .file-upload-container p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 32px;
+        }
+        
+        .form-btn {
+            padding: 10px 20px;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 12px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
         }
         
-        .priority-tag.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .priority-tag.medium { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .priority-tag.low { background: rgba(0, 255, 128, 0.2); color: var(--accent-green); }
+        .form-btn.cancel-btn {
+            background: none;
+            color: var(--text-secondary);
+        }
+
+        .form-btn.cancel-btn:hover {
+            color: var(--text-light);
+        }
+
+        .form-btn.submit-btn {
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+        }
+        
+        .form-btn.submit-btn:hover {
+            box-shadow: var(--shadow-glow);
+        }
 
         /* Footer */
         footer {
@@ -473,44 +461,6 @@
             .dashboard-layout.show-sidebar .main-content {
                 margin-left: 256px;
             }
-            .tickets-table thead {
-                display: none;
-            }
-            .tickets-table tbody, .tickets-table tr, .tickets-table td {
-                display: block;
-                width: 100%;
-            }
-            .tickets-table tr {
-                margin-bottom: 16px;
-                border: 1px solid var(--bg-light);
-                border-radius: var(--border-radius);
-                background: var(--bg-medium);
-            }
-            .tickets-table td {
-                text-align: right;
-                border-bottom: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            .tickets-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 16px;
-                width: 45%;
-                text-align: left;
-                font-weight: 600;
-                color: var(--text-light);
-            }
-            .ticket-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-container {
-                max-width: none;
-            }
-            .filter-container {
-                justify-content: space-between;
-            }
         }
     </style>
 </head>
@@ -552,30 +502,30 @@
         <aside class="sidebar">
             <div class="sidebar-content">
                 <div class="user-profile">
-                    <div class="user-avatar"><%= user.name.toString()[0]  %></div>
+                    <div class="user-avatar"><%= user.name.toString()[0] %></div>
                     <div class="user-info">
-                        <p class="name"><%= user.name  %></p>
+                        <p class="name"><%= user.name %></p>
                         <p class="email"><%= user.email %></p>
                     </div>
                 </div>
 
                 <div class="sidebar-nav-group">
                     <h2>GENERAL</h2>
-                    <a href="#" class="sidebar-nav-link">
+                    <a href="user_dashboard.html" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
                             <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                         </svg>
                         <span>Dashboard</span>
                     </a>
-                    <a href="#" class="sidebar-nav-link">
+                    <a href="user_profile.html" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                         <span>Profile</span>
                     </a>
-                    <a href="#" class="sidebar-nav-link">
+                    <a href="notifications.html" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
                             <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
@@ -586,7 +536,7 @@
 
                 <div class="sidebar-nav-group">
                     <h2>SUPPORT</h2>
-                    <a href="#" class="sidebar-nav-link active">
+                    <a href="tickets.html" class="sidebar-nav-link active">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
                             <path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path>
@@ -636,102 +586,73 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="dashboard-header">
+                <a href="tickets.html" class="back-btn" title="Back to Tickets">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </a>
                 <div>
-                    <h1>Support Tickets</h1>
-                    <p>View and manage your support requests</p>
+                    <h1>Create Support Ticket</h1>
+                    <p>Submit a new support request</p>
                 </div>
-                <form method="GET" action="/user/<%= user._id %>/createTicket">
-                    <button class="new-ticket-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                        </svg>
-                        <span>New Ticket</span>
-                    </button>
-                </form>
             </div>
 
-            <div class="tickets-container">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="title">Your Tickets</div>
-                        <div class="description">Track the status of your support requests</div>
-                    </div>
-                    <div class="ticket-controls">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search tickets...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
-                        </div>
-                        <div class="filter-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                            </svg>
-                            <select>
-                                <option value="all">All Statuses</option>
-                                <option value="open">Open</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="closed">Closed</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="table-container">
-                        <table class="tickets-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (!user.tickets || user.tickets.length === 0){ %>
-                                    <tr>
-                                    <td data-label="ID">#SR-2023-002</td>
-                                    <td data-label="Title">Billing discrepancy on latest invoice</td>
-                                    <td data-label="Status"><span class="status-tag in-progress">In Progress</span></td>
-                                    <td data-label="Priority"><span class="priority-tag medium">Medium</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-003</td>
-                                    <td data-label="Title">Request for additional user licenses</td>
-                                    <td data-label="Status"><span class="status-tag closed">Closed</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-004</td>
-                                    <td data-label="Title">Feature request: Dark mode</td>
-                                    <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <% } else {  %>
-                                    <% for(let ticket of user.tickets) { %>
-                                    <tr>
-                                        <td data-label="ID"><%= ticket._id.toString().slice(0,5) %></td>
-                                        <td data-label="Title"><%= ticket.title  %></td>
-                                        <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                        <td data-label="Priority"><span class="priority-tag high"><%= ticket.priority  %></span></td>
-                                        <td data-label="Created"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-")   %></td>
-                                        <td data-label="Last Updated"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></td>
-                                    </tr>
-                                    <% }  %>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="form-card">
+                <div class="card-header">
+                    <div class="title">Ticket Details</div>
+                    <div class="description">Provide details about your issue so we can assist you effectively</div>
                 </div>
+                <form method="POST" action="/user/<%= user._id %>" class="create-ticket-form">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" placeholder="Brief summary of your issue" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue_type">Issue Type</label>
+                        <select id="issue_type" name="issue_type" required>
+                            <option value="" disabled selected>Select an issue type</option>
+                            <option value="technical">Technical Problem</option>
+                            <option value="billing">Billing Issue</option>
+                            <option value="account">Account Management</option>
+                            <option value="service">Service Request</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="5" placeholder="Detailed explanation of the issue..." required></textarea>
+                        <p class="description" style="margin-top: 8px;">Provide as much detail as possible including steps to reproduce</p>
+                    </div>
+                    <div class="form-group">
+                        <h3 style="font-size: 1rem; margin-bottom: 8px;">Attachments</h3>
+                        <div class="file-upload-container">
+                            <button type="button" onclick="document.getElementById('file-upload').click()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                                    <path d="M12 12v6"></path>
+                                    <path d="m15 15-3-3-3 3"></path>
+                                </svg>
+                                Upload Files
+                            </button>
+                            <input type="file" id="file-upload" multiple style="display: none;">
+                            <p>Max 5 files (10MB each)</p>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="form-btn cancel-btn">Cancel</button>
+                        <button type="submit" class="form-btn submit-btn">Submit Ticket</button>
+                    </div>
+                </form>
             </div>
         </main>
     </div>
