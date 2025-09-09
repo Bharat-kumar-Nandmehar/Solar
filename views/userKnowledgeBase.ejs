@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaready Support Tickets</title>
+    <title>Solaready Knowledge Base</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -261,30 +261,88 @@
             color: var(--text-secondary);
         }
         
-        .new-ticket-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .new-ticket-btn:hover {
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Tickets-specific styles */
-        .tickets-container {
-            max-width: 1200px;
+        /* Knowledge Base Specific Styles */
+        .knowledge-base-container {
+            max-width: 900px;
             margin: 0 auto;
         }
 
+        .search-bar-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 32px;
+        }
+
+        .search-bar-container input {
+            width: 100%;
+            padding: 12px 20px 12px 48px;
+            background: var(--bg-medium);
+            border: 1px solid var(--bg-light);
+            border-radius: 50px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-bar-container input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-bar-container input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        }
+
+        .search-bar-container svg {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            width: 100%;
+            max-width: 450px;
+            margin-bottom: 24px;
+            background: var(--bg-medium);
+            border-radius: var(--border-radius);
+            padding: 4px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .tab-btn.active {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
         .card {
             background: rgba(30, 30, 30, 0.6);
             backdrop-filter: blur(5px);
@@ -293,141 +351,145 @@
             padding: 24px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: var(--transition);
+            margin-bottom: 24px;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
         }
         
-        .card:hover {
+        .category-card {
+            background: var(--bg-medium);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-card:hover {
             transform: translateY(-5px);
             border-color: var(--accent-green);
         }
-
-        .card-header {
+        
+        .category-info {
             display: flex;
-            flex-direction: column;
-            margin-bottom: 24px;
+            align-items: center;
+            gap: 12px;
         }
 
-        .card-header .title {
-            font-size: 1.5rem;
+        .category-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-card h3 {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .article-count {
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .card-header .description {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .ticket-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
             background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
+            padding: 4px 12px;
             border-radius: 50px;
-            color: var(--text-light);
-        }
-
-        .search-container input:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
-        }
-
-        .search-container svg {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
             color: var(--text-secondary);
         }
-
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
         
-        .filter-container select {
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            color: var(--text-light);
-            padding: 10px;
-            border-radius: 8px;
-            appearance: none;
+        .article-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .article-list li {
+            padding: 16px;
+            border-bottom: 1px solid var(--bg-light);
+            transition: background-color 0.3s ease;
             cursor: pointer;
         }
         
-        .filter-container select:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        .article-list li:hover {
+            background-color: var(--bg-medium);
         }
 
-        .tickets-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        
-        .tickets-table th, .tickets-table td {
-            text-align: left;
-            padding: 16px;
-            border-bottom: 1px solid var(--bg-light);
+        .article-list h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: var(--text-light);
         }
 
-        .tickets-table th {
+        .article-list p {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
         
-        .tickets-table tbody tr {
+        .faq-section h2 {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .faq-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 24px;
+        }
+        
+        .faq-item {
+            background: var(--bg-medium);
+            border: 1px solid var(--bg-light);
+            border-radius: var(--border-radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            cursor: pointer;
+            font-weight: 600;
             transition: background-color 0.3s ease;
         }
         
-        .tickets-table tbody tr:hover {
+        .faq-question:hover {
             background-color: var(--bg-light);
         }
 
-        .status-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
         }
-        
-        .status-tag.open { background: rgba(255, 159, 67, 0.15); color: #ff9f43; }
-        .status-tag.in-progress { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-        .status-tag.closed { background: rgba(0, 255, 128, 0.15); color: #00ff80; }
 
-        .priority-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
+        .faq-question.active svg {
+            transform: rotate(180deg);
         }
-        
-        .priority-tag.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .priority-tag.medium { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .priority-tag.low { background: rgba(0, 255, 128, 0.2); color: var(--accent-green); }
+
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            color: var(--text-secondary);
+        }
+
+        .faq-answer.active {
+            max-height: 200px; /* Adjust based on expected content size */
+            padding: 16px 24px 24px;
+        }
+
 
         /* Footer */
         footer {
@@ -472,44 +534,6 @@
             }
             .dashboard-layout.show-sidebar .main-content {
                 margin-left: 256px;
-            }
-            .tickets-table thead {
-                display: none;
-            }
-            .tickets-table tbody, .tickets-table tr, .tickets-table td {
-                display: block;
-                width: 100%;
-            }
-            .tickets-table tr {
-                margin-bottom: 16px;
-                border: 1px solid var(--bg-light);
-                border-radius: var(--border-radius);
-                background: var(--bg-medium);
-            }
-            .tickets-table td {
-                text-align: right;
-                border-bottom: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            .tickets-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 16px;
-                width: 45%;
-                text-align: left;
-                font-weight: 600;
-                color: var(--text-light);
-            }
-            .ticket-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-container {
-                max-width: none;
-            }
-            .filter-container {
-                justify-content: space-between;
             }
         }
     </style>
@@ -637,100 +661,140 @@
         <main class="main-content">
             <div class="dashboard-header">
                 <div>
-                    <h1>Support Tickets</h1>
-                    <p>View and manage your support requests</p>
+                    <h1>Knowledge Base</h1>
+                    <p>Find answers to frequently asked questions and helpful guides</p>
                 </div>
-                <form method="GET" action="/user/<%= user._id %>/createTicket">
-                    <button class="new-ticket-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                        </svg>
-                        <span>New Ticket</span>
-                    </button>
-                </form>
             </div>
 
-            <div class="tickets-container">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="title">Your Tickets</div>
-                        <div class="description">Track the status of your support requests</div>
-                    </div>
-                    <div class="ticket-controls">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search tickets...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
-                        </div>
-                        <div class="filter-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                            </svg>
-                            <select>
-                                <option value="all">All Statuses</option>
-                                <option value="open">Open</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="closed">Closed</option>
-                            </select>
-                        </div>
-                    </div>
+            <div class="knowledge-base-container">
+                <div class="search-bar-container">
+                    <input type="text" placeholder="Search knowledge base...">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </div>
+                
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="showTab('categories')">Categories</button>
+                    <button class="tab-btn" onclick="showTab('popular-articles')">Popular Articles</button>
+                </div>
 
-                    <div class="table-container">
-                        <table class="tickets-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (!user.tickets || user.tickets.length === 0){ %>
-                                    <tr>
-                                    <td data-label="ID">#SR-2023-002</td>
-                                    <td data-label="Title">Billing discrepancy on latest invoice</td>
-                                    <td data-label="Status"><span class="status-tag in-progress">In Progress</span></td>
-                                    <td data-label="Priority"><span class="priority-tag medium">Medium</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-003</td>
-                                    <td data-label="Title">Request for additional user licenses</td>
-                                    <td data-label="Status"><span class="status-tag closed">Closed</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-004</td>
-                                    <td data-label="Title">Feature request: Dark mode</td>
-                                    <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <% } else {  %>
-                                    <% for(let ticket of user.tickets) { %>
-                                    <tr>
-                                        <td data-label="ID"><%= ticket._id.toString().slice(0,5) %></td>
-                                        <td data-label="Title"><%= ticket.title  %></td>
-                                        <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                        <td data-label="Priority"><span class="priority-tag high"><%= ticket.priority  %></span></td>
-                                        <td data-label="Created"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-")   %></td>
-                                        <td data-label="Last Updated"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></td>
-                                    </tr>
-                                    <% }  %>
-                                <% } %>
-                            </tbody>
-                        </table>
+                <div id="categories-tab" class="tab-content active">
+                    <div class="card">
+                        <div class="categories-grid">
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #4f46e5;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path>
+                                            <path d="M7 21C7 16.5817 9.58172 14 14 14C18.4183 14 21 16.5817 21 21H7Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Account Management</h3>
+                                </div>
+                                <span class="article-count">6</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #16a34a;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M3 4.5C3 3.12 4.12 2 5.5 2H18.5C19.88 2 21 3.12 21 4.5V18.5C21 19.88 19.88 21 18.5 21H5.5C4.12 21 3 19.88 3 18.5V4.5ZM8 17H16C16.55 17 17 16.55 17 16C17 15.45 16.55 15 16 15H8C7.45 15 7 15.45 7 16C7 16.55 7.45 17 8 17ZM16 7H8C7.45 7 7 7.45 7 8C7 8.55 7.45 9 8 9H16C16.55 9 17 8.55 17 8C17 7.45 16.55 7 16 7ZM16 13H8C7.45 13 7 12.55 7 12C7 11.45 7.45 11 8 11H16C16.55 11 17 11.45 17 12C17 12.55 16.55 13 16 13Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Billing & Payments</h3>
+                                </div>
+                                <span class="article-count">8</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #e11d48;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M3 17V7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17Z"></path>
+                                            <path d="M9 11.5h2.5V9h1v2.5H15v1h-2.5V15h-1v-2.5H9v-1z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Technical Support</h3>
+                                </div>
+                                <span class="article-count">12</span>
+                            </div>
+                            <div class="category-card">
+                                <div class="category-info">
+                                    <div class="category-icon" style="background-color: #f97316;">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="white" width="16" height="16">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 17V11H13V17H11ZM11 9V7H13V9H11Z"></path>
+                                        </svg>
+                                    </div>
+                                    <h3>Getting Started</h3>
+                                </div>
+                                <span class="article-count">4</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div id="popular-articles-tab" class="tab-content">
+                    <div class="card">
+                        <ul class="article-list">
+                            <li>
+                                <h4>How to read your Solaready bill</h4>
+                                <p>A step-by-step guide to understanding the different charges on your monthly statement.</p>
+                            </li>
+                            <li>
+                                <h4>Troubleshooting common panel issues</h4>
+                                <p>Quick solutions for the most frequent technical problems with your solar panels.</p>
+                            </li>
+                            <li>
+                                <h4>Setting up your account for the first time</h4>
+                                <p>Everything you need to know to get started with your new Solaready account.</p>
+                            </li>
+                            <li>
+                                <h4>Upgrading your system: What you need to know</h4>
+                                <p>Information on how to upgrade your existing solar setup for more power and efficiency.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                ---
+
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+                    <ul class="faq-list">
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>How do I contact customer support?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can contact our customer support team through the **Live Chat** feature in the dashboard, or by submitting a support ticket. Our AI assistant is available 24/7, and human agents are online during business hours.</p>
+                            </div>
+                        </li>
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>What is the average lifespan of a solar panel?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Most modern solar panels have a lifespan of **25 to 30 years**. Their efficiency will gradually decrease over time, but they will continue to produce energy.</p>
+                            </div>
+                        </li>
+                        <li class="faq-item">
+                            <div class="faq-question">
+                                <span>How can I track my energy usage?</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m6 9 6 6 6-6"></path>
+                                </svg>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can monitor your energy production and usage directly from your dashboard. We also provide a detailed breakdown in your monthly invoice and a detailed article on how to read your Solaready bill.</p>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </main>
@@ -750,6 +814,32 @@
             const layout = document.querySelector('.dashboard-layout');
             layout.classList.toggle('show-sidebar');
         }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId + '-tab').classList.add('active');
+            document.querySelector(`[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const activeQuestion = document.querySelector('.faq-question.active');
+                
+                if (activeQuestion && activeQuestion !== item) {
+                    activeQuestion.classList.remove('active');
+                    activeQuestion.nextElementSibling.classList.remove('active');
+                }
+
+                item.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
     </script>
 </body>
 </html>

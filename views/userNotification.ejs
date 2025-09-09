@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaready Support Tickets</title>
+    <title>Solaready Notifications</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -260,175 +260,100 @@
         .dashboard-header p {
             color: var(--text-secondary);
         }
-        
-        .new-ticket-btn {
+
+        /* Notifications-specific styles */
+        .notifications-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .notification-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
+            margin-bottom: 24px;
+        }
+
+        .notification-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            position: static;
+        }
+        
+        .notification-header h2::after {
+            display: none;
+        }
+
+        .mark-read-btn {
+            background: none;
+            border: 1px solid var(--bg-light);
+            color: var(--text-secondary);
+            padding: 8px 16px;
             border-radius: 50px;
-            background: var(--gradient-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            border: none;
             cursor: pointer;
             transition: var(--transition);
         }
         
-        .new-ticket-btn:hover {
-            box-shadow: var(--shadow-glow);
+        .mark-read-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
         }
 
-        /* Tickets-specific styles */
-        .tickets-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .notifications-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .card {
+        .notification-item {
             background: rgba(30, 30, 30, 0.6);
             backdrop-filter: blur(5px);
             border: 1px solid var(--bg-light);
             border-radius: var(--border-radius);
             padding: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
             transition: var(--transition);
         }
         
-        .card:hover {
+        .notification-item:hover {
             transform: translateY(-5px);
             border-color: var(--accent-green);
         }
 
-        .card-header {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 24px;
+        .notification-item.unread {
+            border-left: 4px solid var(--accent-green);
         }
 
-        .card-header .title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-light);
-        }
-
-        .card-header .description {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .ticket-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
+        .notification-icon {
+            width: 40px;
+            height: 40px;
             background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            border-radius: 50px;
-            color: var(--text-light);
-        }
-
-        .search-container input:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
-        }
-
-        .search-container svg {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .filter-container {
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        
-        .filter-container select {
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
+
+        .notification-content .title {
+            font-size: 1rem;
+            font-weight: 600;
             color: var(--text-light);
-            padding: 10px;
-            border-radius: 8px;
-            appearance: none;
-            cursor: pointer;
-        }
-        
-        .filter-container select:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+            margin-bottom: 4px;
         }
 
-        .tickets-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        
-        .tickets-table th, .tickets-table td {
-            text-align: left;
-            padding: 16px;
-            border-bottom: 1px solid var(--bg-light);
-        }
-
-        .tickets-table th {
+        .notification-content .message {
             color: var(--text-secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .tickets-table tbody tr {
-            transition: background-color 0.3s ease;
-        }
-        
-        .tickets-table tbody tr:hover {
-            background-color: var(--bg-light);
+            margin-bottom: 8px;
         }
 
-        .status-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
+        .notification-content .timestamp {
             font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            color: var(--text-secondary);
         }
         
-        .status-tag.open { background: rgba(255, 159, 67, 0.15); color: #ff9f43; }
-        .status-tag.in-progress { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-        .status-tag.closed { background: rgba(0, 255, 128, 0.15); color: #00ff80; }
-
-        .priority-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
-        }
-        
-        .priority-tag.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .priority-tag.medium { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .priority-tag.low { background: rgba(0, 255, 128, 0.2); color: var(--accent-green); }
-
         /* Footer */
         footer {
             position: fixed;
@@ -473,43 +398,12 @@
             .dashboard-layout.show-sidebar .main-content {
                 margin-left: 256px;
             }
-            .tickets-table thead {
-                display: none;
-            }
-            .tickets-table tbody, .tickets-table tr, .tickets-table td {
-                display: block;
-                width: 100%;
-            }
-            .tickets-table tr {
-                margin-bottom: 16px;
-                border: 1px solid var(--bg-light);
-                border-radius: var(--border-radius);
-                background: var(--bg-medium);
-            }
-            .tickets-table td {
-                text-align: right;
-                border-bottom: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            .tickets-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 16px;
-                width: 45%;
-                text-align: left;
-                font-weight: 600;
-                color: var(--text-light);
-            }
-            .ticket-controls {
+            .notification-item {
                 flex-direction: column;
-                align-items: stretch;
+                text-align: center;
             }
-            .search-container {
-                max-width: none;
-            }
-            .filter-container {
-                justify-content: space-between;
+            .notification-icon {
+                margin-bottom: 8px;
             }
         }
     </style>
@@ -637,101 +531,73 @@
         <main class="main-content">
             <div class="dashboard-header">
                 <div>
-                    <h1>Support Tickets</h1>
-                    <p>View and manage your support requests</p>
+                    <h1>Notifications</h1>
+                    <p>View all your recent alerts and updates.</p>
                 </div>
-                <form method="GET" action="/user/<%= user._id %>/createTicket">
-                    <button class="new-ticket-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                        </svg>
-                        <span>New Ticket</span>
-                    </button>
-                </form>
             </div>
 
-            <div class="tickets-container">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="title">Your Tickets</div>
-                        <div class="description">Track the status of your support requests</div>
-                    </div>
-                    <div class="ticket-controls">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search tickets...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
-                        </div>
-                        <div class="filter-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                            </svg>
-                            <select>
-                                <option value="all">All Statuses</option>
-                                <option value="open">Open</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="closed">Closed</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="table-container">
-                        <table class="tickets-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (!user.tickets || user.tickets.length === 0){ %>
-                                    <tr>
-                                    <td data-label="ID">#SR-2023-002</td>
-                                    <td data-label="Title">Billing discrepancy on latest invoice</td>
-                                    <td data-label="Status"><span class="status-tag in-progress">In Progress</span></td>
-                                    <td data-label="Priority"><span class="priority-tag medium">Medium</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-003</td>
-                                    <td data-label="Title">Request for additional user licenses</td>
-                                    <td data-label="Status"><span class="status-tag closed">Closed</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-004</td>
-                                    <td data-label="Title">Feature request: Dark mode</td>
-                                    <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <% } else {  %>
-                                    <% for(let ticket of user.tickets) { %>
-                                    <tr>
-                                        <td data-label="ID"><%= ticket._id.toString().slice(0,5) %></td>
-                                        <td data-label="Title"><%= ticket.title  %></td>
-                                        <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                        <td data-label="Priority"><span class="priority-tag high"><%= ticket.priority  %></span></td>
-                                        <td data-label="Created"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-")   %></td>
-                                        <td data-label="Last Updated"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></td>
-                                    </tr>
-                                    <% }  %>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="notifications-container">
+                <div class="notification-header">
+                    <h2>Recent Notifications</h2>
+                    <button class="mark-read-btn">Mark all as read</button>
                 </div>
+                
+                <ul class="notifications-list">
+                    <li class="notification-item unread">
+                        <div class="notification-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21.5c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                <path d="M12 12v3.5"></path>
+                                <path d="M12 8v-.5"></path>
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="title">System Maintenance Scheduled</p>
+                            <p class="message">Our servers will undergo scheduled maintenance on <b>June 30th</b> from 2:00 AM to 4:00 AM EST. Services may be temporarily unavailable.</p>
+                            <p class="timestamp">Just now</p>
+                        </div>
+                    </li>
+                    <li class="notification-item unread">
+                        <div class="notification-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                <path d="M12 2v6"></path>
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="title">New Feature Alert: Mobile App!</p>
+                            <p class="message">The Solaready mobile app is now available for download on iOS and Android devices. Get it now to manage your energy on the go!</p>
+                            <p class="timestamp">1 hour ago</p>
+                        </div>
+                    </li>
+                    <li class="notification-item">
+                        <div class="notification-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4"></path>
+                                <path d="M12 8h.01"></path>
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="title">New Billing Cycle Started</p>
+                            <p class="message">Your new billing cycle has started. View your latest invoice in the Payments section.</p>
+                            <p class="timestamp">2 days ago</p>
+                        </div>
+                    </li>
+                    <li class="notification-item">
+                        <div class="notification-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="notification-content">
+                            <p class="title">Your support ticket has been resolved</p>
+                            <p class="message">Ticket #245 was marked as resolved. We hope we were able to assist you effectively.</p>
+                            <p class="timestamp">3 days ago</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </main>
     </div>

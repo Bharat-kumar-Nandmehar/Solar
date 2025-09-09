@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaready Support Tickets</title>
+    <title>Solaready Payments</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -261,27 +261,9 @@
             color: var(--text-secondary);
         }
         
-        .new-ticket-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .new-ticket-btn:hover {
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Tickets-specific styles */
-        .tickets-container {
-            max-width: 1200px;
+        /* Payments-specific styles */
+        .payments-container {
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -299,7 +281,7 @@
             transform: translateY(-5px);
             border-color: var(--accent-green);
         }
-
+        
         .card-header {
             display: flex;
             flex-direction: column;
@@ -317,91 +299,31 @@
             color: var(--text-secondary);
         }
 
-        .ticket-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            border-radius: 50px;
-            color: var(--text-light);
-        }
-
-        .search-container input:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
-        }
-
-        .search-container svg {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .filter-container select {
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            color: var(--text-light);
-            padding: 10px;
-            border-radius: 8px;
-            appearance: none;
-            cursor: pointer;
-        }
-        
-        .filter-container select:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
-        }
-
-        .tickets-table {
+        .payments-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
         }
         
-        .tickets-table th, .tickets-table td {
+        .payments-table th, .payments-table td {
             text-align: left;
             padding: 16px;
             border-bottom: 1px solid var(--bg-light);
         }
 
-        .tickets-table th {
+        .payments-table th {
             color: var(--text-secondary);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
         
-        .tickets-table tbody tr {
+        .payments-table tbody tr {
             transition: background-color 0.3s ease;
         }
         
-        .tickets-table tbody tr:hover {
-            background-color: var(--bg-light);
+        .payments-table tbody tr:hover {
+            background-color: var(--bg-medium);
         }
 
         .status-tag {
@@ -414,20 +336,24 @@
             gap: 4px;
         }
         
-        .status-tag.open { background: rgba(255, 159, 67, 0.15); color: #ff9f43; }
-        .status-tag.in-progress { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-        .status-tag.closed { background: rgba(0, 255, 128, 0.15); color: #00ff80; }
+        .status-tag.paid { background: rgba(0, 255, 128, 0.15); color: var(--accent-green); }
+        .status-tag.pending { background: rgba(0, 212, 255, 0.15); color: var(--accent-blue); }
+        .status-tag.overdue { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
 
-        .priority-tag {
-            padding: 4px 12px;
+        .action-btn {
+            background: none;
+            border: 1px solid var(--bg-light);
+            color: var(--text-secondary);
+            padding: 8px 16px;
             border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
         }
         
-        .priority-tag.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .priority-tag.medium { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .priority-tag.low { background: rgba(0, 255, 128, 0.2); color: var(--accent-green); }
+        .action-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
 
         /* Footer */
         footer {
@@ -473,26 +399,26 @@
             .dashboard-layout.show-sidebar .main-content {
                 margin-left: 256px;
             }
-            .tickets-table thead {
+            .payments-table thead {
                 display: none;
             }
-            .tickets-table tbody, .tickets-table tr, .tickets-table td {
+            .payments-table tbody, .payments-table tr, .payments-table td {
                 display: block;
                 width: 100%;
             }
-            .tickets-table tr {
+            .payments-table tr {
                 margin-bottom: 16px;
                 border: 1px solid var(--bg-light);
                 border-radius: var(--border-radius);
                 background: var(--bg-medium);
             }
-            .tickets-table td {
+            .payments-table td {
                 text-align: right;
                 border-bottom: none;
                 position: relative;
                 padding-left: 50%;
             }
-            .tickets-table td::before {
+            .payments-table td::before {
                 content: attr(data-label);
                 position: absolute;
                 left: 16px;
@@ -500,16 +426,6 @@
                 text-align: left;
                 font-weight: 600;
                 color: var(--text-light);
-            }
-            .ticket-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-container {
-                max-width: none;
-            }
-            .filter-container {
-                justify-content: space-between;
             }
         }
     </style>
@@ -637,97 +553,58 @@
         <main class="main-content">
             <div class="dashboard-header">
                 <div>
-                    <h1>Support Tickets</h1>
-                    <p>View and manage your support requests</p>
+                    <h1>Payments & Invoices</h1>
+                    <p>View and manage your payment history and invoices.</p>
                 </div>
-                <form method="GET" action="/user/<%= user._id %>/createTicket">
-                    <button class="new-ticket-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                        </svg>
-                        <span>New Ticket</span>
-                    </button>
-                </form>
             </div>
 
-            <div class="tickets-container">
+            <div class="payments-container">
                 <div class="card">
                     <div class="card-header">
-                        <div class="title">Your Tickets</div>
-                        <div class="description">Track the status of your support requests</div>
-                    </div>
-                    <div class="ticket-controls">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search tickets...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
-                        </div>
-                        <div class="filter-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                            </svg>
-                            <select>
-                                <option value="all">All Statuses</option>
-                                <option value="open">Open</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="closed">Closed</option>
-                            </select>
-                        </div>
+                        <div class="title">Your Invoices</div>
+                        <div class="description">A list of all your past and pending invoices.</div>
                     </div>
 
                     <div class="table-container">
-                        <table class="tickets-table">
+                        <table class="payments-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
+                                    <th>Invoice #</th>
+                                    <th>Amount</th>
                                     <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
+                                    <th>Due Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% if (!user.tickets || user.tickets.length === 0){ %>
-                                    <tr>
-                                    <td data-label="ID">#SR-2023-002</td>
-                                    <td data-label="Title">Billing discrepancy on latest invoice</td>
-                                    <td data-label="Status"><span class="status-tag in-progress">In Progress</span></td>
-                                    <td data-label="Priority"><span class="priority-tag medium">Medium</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
+                                <tr>
+                                    <td data-label="Invoice #">#INV-2023-005</td>
+                                    <td data-label="Amount">$125.00</td>
+                                    <td data-label="Status"><span class="status-tag overdue">Overdue</span></td>
+                                    <td data-label="Due Date">06/25/2023</td>
+                                    <td data-label="Action"><button class="action-btn">Pay Now</button></td>
                                 </tr>
                                 <tr>
-                                    <td data-label="ID">#SR-2023-003</td>
-                                    <td data-label="Title">Request for additional user licenses</td>
-                                    <td data-label="Status"><span class="status-tag closed">Closed</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
+                                    <td data-label="Invoice #">#INV-2023-004</td>
+                                    <td data-label="Amount">$99.99</td>
+                                    <td data-label="Status"><span class="status-tag paid">Paid</span></td>
+                                    <td data-label="Due Date">05/25/2023</td>
+                                    <td data-label="Action"><button class="action-btn">View Invoice</button></td>
                                 </tr>
                                 <tr>
-                                    <td data-label="ID">#SR-2023-004</td>
-                                    <td data-label="Title">Feature request: Dark mode</td>
-                                    <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
+                                    <td data-label="Invoice #">#INV-2023-003</td>
+                                    <td data-label="Amount">$150.00</td>
+                                    <td data-label="Status"><span class="status-tag paid">Paid</span></td>
+                                    <td data-label="Due Date">04/25/2023</td>
+                                    <td data-label="Action"><button class="action-btn">View Invoice</button></td>
                                 </tr>
-                                <% } else {  %>
-                                    <% for(let ticket of user.tickets) { %>
-                                    <tr>
-                                        <td data-label="ID"><%= ticket._id.toString().slice(0,5) %></td>
-                                        <td data-label="Title"><%= ticket.title  %></td>
-                                        <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                        <td data-label="Priority"><span class="priority-tag high"><%= ticket.priority  %></span></td>
-                                        <td data-label="Created"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-")   %></td>
-                                        <td data-label="Last Updated"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></td>
-                                    </tr>
-                                    <% }  %>
-                                <% } %>
+                                <tr>
+                                    <td data-label="Invoice #">#INV-2023-002</td>
+                                    <td data-label="Amount">$110.50</td>
+                                    <td data-label="Status"><span class="status-tag paid">Paid</span></td>
+                                    <td data-label="Due Date">03/25/2023</td>
+                                    <td data-label="Action"><button class="action-btn">View Invoice</button></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

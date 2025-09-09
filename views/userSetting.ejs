@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaready Support Tickets</title>
+    <title>Solaready Settings</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -261,28 +261,19 @@
             color: var(--text-secondary);
         }
         
-        .new-ticket-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            color: var(--bg-dark);
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .new-ticket-btn:hover {
-            box-shadow: var(--shadow-glow);
+        /* Settings-specific styles */
+        .settings-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 24px;
+            grid-template-columns: 1fr;
         }
 
-        /* Tickets-specific styles */
-        .tickets-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        @media (min-width: 768px) {
+            .settings-container {
+                grid-template-columns: 2fr 1fr;
+            }
         }
 
         .card {
@@ -293,11 +284,6 @@
             padding: 24px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: var(--transition);
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-green);
         }
 
         .card-header {
@@ -316,118 +302,143 @@
             font-size: 14px;
             color: var(--text-secondary);
         }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
 
-        .ticket-controls {
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        }
+        
+        .action-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-        
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 300px;
+            margin-bottom: 16px;
         }
 
-        .search-container input {
-            width: 100%;
-            padding: 10px 10px 10px 40px;
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            border-radius: 50px;
+        .action-item .info h3 {
+            margin: 0;
             color: var(--text-light);
         }
 
-        .search-container input:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
-        }
-
-        .search-container svg {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
+        .action-item .info p {
+            margin: 4px 0 0;
+            font-size: 14px;
             color: var(--text-secondary);
         }
 
-        .filter-container {
+        .action-btn {
+            background: var(--bg-dark);
+            border: 1px solid var(--bg-light);
+            color: var(--text-light);
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+        
+        .form-divider {
+            height: 1px;
+            background-color: var(--bg-light);
+            margin: 24px 0;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .form-actions button {
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        
-        .filter-container select {
-            background: var(--bg-dark);
-            border: 1px solid var(--bg-light);
-            color: var(--text-light);
-            padding: 10px;
-            border-radius: 8px;
-            appearance: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: var(--bg-dark);
+            font-weight: 600;
+            border: none;
             cursor: pointer;
+            transition: var(--transition);
         }
         
-        .filter-container select:focus {
-            outline: none;
-            border-color: var(--accent-green);
-            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        .form-actions button:hover {
+            box-shadow: var(--shadow-glow);
+        }
+        
+        /* Toggle switch for notifications */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
         }
 
-        .tickets-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        
-        .tickets-table th, .tickets-table td {
-            text-align: left;
-            padding: 16px;
-            border-bottom: 1px solid var(--bg-light);
-        }
-
-        .tickets-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .tickets-table tbody tr {
-            transition: background-color 0.3s ease;
-        }
-        
-        .tickets-table tbody tr:hover {
-            background-color: var(--bg-light);
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #333;
+            transition: .4s;
+            border-radius: 24px;
         }
 
-        .status-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
         }
-        
-        .status-tag.open { background: rgba(255, 159, 67, 0.15); color: #ff9f43; }
-        .status-tag.in-progress { background: rgba(0, 212, 255, 0.15); color: #00d4ff; }
-        .status-tag.closed { background: rgba(0, 255, 128, 0.15); color: #00ff80; }
 
-        .priority-tag {
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 12px;
+        input:checked + .toggle-slider {
+            background-color: var(--accent-green);
         }
-        
-        .priority-tag.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        .priority-tag.medium { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .priority-tag.low { background: rgba(0, 255, 128, 0.2); color: var(--accent-green); }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
 
         /* Footer */
         footer {
@@ -472,44 +483,6 @@
             }
             .dashboard-layout.show-sidebar .main-content {
                 margin-left: 256px;
-            }
-            .tickets-table thead {
-                display: none;
-            }
-            .tickets-table tbody, .tickets-table tr, .tickets-table td {
-                display: block;
-                width: 100%;
-            }
-            .tickets-table tr {
-                margin-bottom: 16px;
-                border: 1px solid var(--bg-light);
-                border-radius: var(--border-radius);
-                background: var(--bg-medium);
-            }
-            .tickets-table td {
-                text-align: right;
-                border-bottom: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            .tickets-table td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 16px;
-                width: 45%;
-                text-align: left;
-                font-weight: 600;
-                color: var(--text-light);
-            }
-            .ticket-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .search-container {
-                max-width: none;
-            }
-            .filter-container {
-                justify-content: space-between;
             }
         }
     </style>
@@ -637,99 +610,110 @@
         <main class="main-content">
             <div class="dashboard-header">
                 <div>
-                    <h1>Support Tickets</h1>
-                    <p>View and manage your support requests</p>
+                    <h1>Settings</h1>
+                    <p>Manage your account information and preferences.</p>
                 </div>
-                <form method="GET" action="/user/<%= user._id %>/createTicket">
-                    <button class="new-ticket-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14"></path>
-                            <path d="M12 5v14"></path>
-                        </svg>
-                        <span>New Ticket</span>
-                    </button>
-                </form>
             </div>
 
-            <div class="tickets-container">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="title">Your Tickets</div>
-                        <div class="description">Track the status of your support requests</div>
-                    </div>
-                    <div class="ticket-controls">
-                        <div class="search-container">
-                            <input type="text" placeholder="Search tickets...">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </svg>
+            <div class="settings-container">
+                <!-- Main Settings Cards -->
+                <div class="card-group">
+                    <!-- Account Information Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="title">Account Information</div>
+                            <div class="description">Update your personal details.</div>
                         </div>
-                        <div class="filter-container">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                            </svg>
-                            <select>
-                                <option value="all">All Statuses</option>
-                                <option value="open">Open</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="closed">Closed</option>
-                            </select>
-                        </div>
+                        <form>
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" value="<%= user.name  %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" value="<%= user.email  %>">
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
+                                        <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"></path>
+                                        <path d="M7 3v4a1 1 0 0 0 1 1h7"></path>
+                                    </svg>
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
-                    <div class="table-container">
-                        <table class="tickets-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Status</th>
-                                    <th>Priority</th>
-                                    <th>Created</th>
-                                    <th>Last Updated</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if (!user.tickets || user.tickets.length === 0){ %>
-                                    <tr>
-                                    <td data-label="ID">#SR-2023-002</td>
-                                    <td data-label="Title">Billing discrepancy on latest invoice</td>
-                                    <td data-label="Status"><span class="status-tag in-progress">In Progress</span></td>
-                                    <td data-label="Priority"><span class="priority-tag medium">Medium</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-003</td>
-                                    <td data-label="Title">Request for additional user licenses</td>
-                                    <td data-label="Status"><span class="status-tag closed">Closed</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="ID">#SR-2023-004</td>
-                                    <td data-label="Title">Feature request: Dark mode</td>
-                                    <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                    <td data-label="Priority"><span class="priority-tag low">Low</span></td>
-                                    <td data-label="Created">Tue-Sep-09-2025</td>
-                                    <td data-label="Last Updated">Tue-Sep-09-2025</td>
-                                </tr>
-                                <% } else {  %>
-                                    <% for(let ticket of user.tickets) { %>
-                                    <tr>
-                                        <td data-label="ID"><%= ticket._id.toString().slice(0,5) %></td>
-                                        <td data-label="Title"><%= ticket.title  %></td>
-                                        <td data-label="Status"><span class="status-tag open">Open</span></td>
-                                        <td data-label="Priority"><span class="priority-tag high"><%= ticket.priority  %></span></td>
-                                        <td data-label="Created"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-")   %></td>
-                                        <td data-label="Last Updated"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></td>
-                                    </tr>
-                                    <% }  %>
-                                <% } %>
-                            </tbody>
-                        </table>
+                    <!-- Security Settings Card -->
+                    <div class="card" style="margin-top: 24px;">
+                        <div class="card-header">
+                            <div class="title">Security Settings</div>
+                            <div class="description">Manage your account security.</div>
+                        </div>
+                        <div class="action-item">
+                            <div class="info">
+                                <h3>Password</h3>
+                                <p>Last changed 2 months ago.</p>
+                            </div>
+                            <button class="action-btn">Change Password</button>
+                        </div>
+                        <div class="form-divider"></div>
+                        <div class="action-item">
+                            <div class="info">
+                                <h3>Two-Factor Authentication</h3>
+                                <p>Disabled</p>
+                            </div>
+                            <button class="action-btn">Enable</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Secondary Settings Cards -->
+                <div>
+                    <!-- Notification Preferences Card -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="title">Notification Preferences</div>
+                            <div class="description">Select the alerts you want to receive.</div>
+                        </div>
+                        <div class="action-item">
+                            <div class="info">
+                                <h3>Email Notifications</h3>
+                                <p>Receive alerts for important updates.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="form-divider"></div>
+                        <div class="action-item">
+                            <div class="info">
+                                <h3>New Ticket Updates</h3>
+                                <p>Be notified when a new ticket is created.</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Billing & Subscription Card -->
+                    <div class="card" style="margin-top: 24px;">
+                        <div class="card-header">
+                            <div class="title">Billing & Subscription</div>
+                            <div class="description">View your plan details and payment history.</div>
+                        </div>
+                        <div class="action-item">
+                            <div class="info">
+                                <h3>Current Plan</h3>
+                                <p>Basic Plan - $9.99/month</p>
+                            </div>
+                            <a href="payments.html" class="action-btn">View Payments</a>
+                        </div>
                     </div>
                 </div>
             </div>

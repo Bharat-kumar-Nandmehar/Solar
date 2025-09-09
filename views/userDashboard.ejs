@@ -485,7 +485,7 @@
 
                 <div class="sidebar-nav-group">
                     <h2>GENERAL</h2>
-                    <a href="user_dashboard.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/dashboard/<%= user._id %>" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
                             <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -499,7 +499,7 @@
                         </svg>
                         <span>Profile</span>
                     </a>
-                    <a href="notifications.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/user/<%= user._id %>/notification" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
                             <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
@@ -517,13 +517,13 @@
                         </svg>
                         <span>Tickets</span>
                     </a>
-                    <a href="livechat.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/user/<%= user._id %>/livechat" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                         <span>Live Chat</span>
                     </a>
-                    <a href="knowledge_base.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/user/<%= user._id %>/knowledge" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 17h.01"></path>
                             <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"></path>
@@ -535,7 +535,7 @@
 
                 <div class="sidebar-nav-group">
                     <h2>BILLING</h2>
-                    <a href="payments.html" class="sidebar-nav-link">
+                    <a href="http://localhost:8080/user/<%= user._id %>/payment" class="sidebar-nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect width="20" height="14" x="2" y="5" rx="2"></rect>
                             <line x1="2" x2="22" y1="10" y2="10"></line>
@@ -546,7 +546,7 @@
 
                 <div class="sidebar-nav-group">
                     <h2>ACCOUNT</h2>
-                    <a href="settings.html" class="sidebar-nav-link active">
+                    <a href="http://localhost:8080/user/<%= user._id %>/settings" class="sidebar-nav-link active">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
                             <circle cx="12" cy="12" r="3"></circle>
@@ -564,14 +564,16 @@
                     <h1>Welcome back, <%= user.name %>!</h1>
                     <p>Here's a summary of your support activity.</p>
                 </div>
-                <button class="new-ticket-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M8 12h8"></path>
-                        <path d="M12 8v8"></path>
-                    </svg>
-                    <span>New Ticket</span>
-                </button>
+                <form method="GET" action="/user/<%= user._id %>/createTicket">
+                    <button class="new-ticket-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 12h8"></path>
+                            <path d="M12 8v8"></path>
+                        </svg>
+                        <span>New Ticket</span>
+                    </button>
+                </form>
             </div>
 
             <div class="card-grid">
@@ -625,7 +627,7 @@
                         <div class="description">Your recently created support tickets</div>
                     </div>
                     <div class="card-content">
-                        <% // if (!user.tickets || user.tickets.length === 0) {  %>
+                        <% if (!user.tickets || user.tickets.length === 0) {  %>
                             <div class="ticket-item">
                                 <div>
                                     <p>Unable to access account settings</p>
@@ -647,17 +649,17 @@
                                 </div>
                                 <span class="status closed">closed</span>
                             </div>
-                        <% //} else { %>
-                            <% //for(let ticket of tickets){ %>
+                        <% } else { %>
+                            <% for(let ticket of user.tickets){ %>
                                 <div class="ticket-item">
                                 <div>
-                                    <p><%= //ticket.title  %></p>
-                                    <p class="description">6/15/2023</p>
+                                    <p><%= ticket.title  %></p>
+                                    <p class="description"><%= ticket.created_at.toString().split(" ").splice(0,4).join("-") %></p>
                                 </div>
                                 <span class="status open">open</span>
                                 </div>                    
-                            <% //} %>
-                        <% //} %> 
+                            <% } %>
+                        <% } %> 
                     </div>
                 </div>
 

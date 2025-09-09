@@ -56,10 +56,10 @@ app.post("/signup", async(req,res)=>{
 // Login in Dashboard
 app.post("/user",async(req,res)=>{
     let {email:newEmail ,password:newPassword} = req.body;
-    let user = await User.findOne({email:newEmail});
+    let user = await User.findOne({email:newEmail}).populate("tickets");
     if(newEmail === user.email && newPassword === user.password){
-        // console.log("inside if");
-        // console.log(user);
+        console.log("inside if");
+        console.log(user);
         res.render("userDashboard.ejs",{user}); 
     }
     else{
@@ -70,6 +70,12 @@ app.post("/user",async(req,res)=>{
     
 })
 
+// Dashboard Page
+app.get("/dashboard/:id", async(req,res)=>{
+    let {id} = req.params;
+    let user = await User.findById(id).populate("tickets");
+    res.render("userDashboard.ejs",{user}); 
+})
 
 
 // Profile Page
@@ -115,6 +121,7 @@ app.get("/user/:id/createTicket",async(req,res)=>{
     res.render("userCreateTicket.ejs",{user});
 })
 
+// Adding Create ticket page Data into Database
 app.post("/user/:id" ,async(req,res)=>{
     let {id} = req.params; // Extracting data from the url (user data)
     let{title: newTitle,issue_type,priority,description} = req.body;
@@ -125,6 +132,42 @@ app.post("/user/:id" ,async(req,res)=>{
     await user.save();
     res.redirect(`/user/${id}/tickets`);
 })
+
+// Notification Page
+app.get("/user/:id/notification",async(req,res)=>{
+    let {id} = req.params; 
+    let user = await User.findById(id);
+    res.render("userNotification.ejs",{user});
+})
+
+// Live Chat Page
+app.get("/user/:id/livechat",async(req,res)=>{
+    let {id} = req.params; 
+    let user = await User.findById(id);
+    res.render("userLiveChat.ejs",{user});
+})
+
+// Knowledge Page
+app.get("/user/:id/knowledge",async(req,res)=>{
+    let {id} = req.params; 
+    let user = await User.findById(id);
+    res.render("userKnowledgeBase.ejs",{user});
+})
+
+// Payment Page
+app.get("/user/:id/payment",async(req,res)=>{
+    let {id} = req.params; 
+    let user = await User.findById(id);
+    res.render("userPayment.ejs",{user});
+})
+
+// Settings Page
+app.get("/user/:id/settings",async(req,res)=>{
+    let {id} = req.params; 
+    let user = await User.findById(id);
+    res.render("userSetting.ejs",{user});
+})
+
 
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`);
